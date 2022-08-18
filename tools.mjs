@@ -1,6 +1,6 @@
 "use strict";
 
-import { calcAPCA, fontLookupAPCA } from "apca-w3";
+import { calcAPCA, fontLookupAPCA, reverseAPCA, sRGBtoY } from "apca-w3";
 import { colorParsley } from "colorparsley";
 
 function getFontSize(txtClr, bgClr, fontWeight) {
@@ -10,9 +10,6 @@ function getFontSize(txtClr, bgClr, fontWeight) {
 function getBoW(txtClr, bgClr) {
   return /BoW/.test(calcAPCA(txtClr, bgClr, 0)) ? "#fff" : "#000";
 }
-
-//console.log(getFontSize("#113f4b", "#e6f5f9", 500));
-//console.log(getBoW("#113f4b", "#e6f5f9"));
 
 // INDEX ARRAYS
 // For the following arrays, the Y axis is contrastArrayLen
@@ -85,7 +82,7 @@ export function gettxt(color, knownType, fs, fw, usage) {
 
   const colors = [];
   for (let i = 0; i <= 100; i++) {
-    const newColor = `hsl(${h} ${s} ${i}%)`;
+    const newColor = toHSLString({h, s, l: i});
 
     let contrast;
     switch (knownType) {
@@ -100,7 +97,14 @@ export function gettxt(color, knownType, fs, fw, usage) {
   }
 
   const { color: contrast } = colors.reduce((x, y) => Math.abs(Math.abs(y.contrast) - target) < Math.abs(Math.abs(x.contrast) - target) ? y : x);
-  console.log(target, contrast);
+
+  let contrast2 = reverseAPCA(target, sRGBtoY(colorParsley(color)), knownType, "color");
+
+  if (!contrast2) contrast2 = reverseAPCA(-target, sRGBtoY(colorParsley(color)), knownType, "color");
+
+  contrast2 = toHSLString(toHSL(contrast2));
+
+  console.log(target, contrast, contrast2);
 }
 
 gettxt("hsl(192 63% 94%)", "txt", 48, 700, 4);
@@ -134,6 +138,10 @@ function toHSL(color) {
   })() * 60;
 
   return {h, s: s * 100 + "%", l: l * 100 + "%"};
+}
+
+function toHSLString({h, s, l}) {
+  return `hsl(${h} ${s} ${l}%)`;
 }
 
 toHSL("hsl(192 63% 94%)");
