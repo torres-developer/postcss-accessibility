@@ -1,35 +1,33 @@
 "use strict";
 
-const req = (async () => await import("./index.mjs"))();
+const valueParser = require("postcss-value-parser");
+
+//const { gettxt } = require("./tools.mjs");
+
+console.log(valueParser);
+//console.log(gettxt);
 
 /**
  * @type {import('postcss').PluginCreator}
  */
-module.exports = (opts = {}) => {
+module.exports = (opts = {
+  fontSize: 16,
+  fontWeight: 400,
+  usage: 4,
+}) => {
   // Work with options here
-
   return {
     postcssPlugin: 'postcss-accessibility',
-    /*
-    Root (root, postcss) {
-      // Transform CSS AST here
-    }
-    */
-
-    /*
-    Declaration (decl, postcss) {
-      // The faster way to find Declaration node
-    }
-    */
-
-    /*
-    Declaration: {
-      color: (decl, postcss) {
-        // The fastest way find Declaration node if you know property name
+    //Rule: rule => {
+    //  console.log(rule);
+    //},
+    Declaration: decl => {
+      if (decl.value.startsWith("a11y-txt(")) {
+        const params = valueParser(decl.value).nodes[0].nodes;
+        console.log(/*gettxt(*/params[0].value, "txt", ...Object.values(opts)/*)*/);
       }
-    }
-    */
-  }
+    },
+  };
 }
 
-module.exports.postcss = true
+module.exports.postcss = true;

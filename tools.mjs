@@ -105,6 +105,7 @@ export function gettxt(color, knownType, fs, fw, usage) {
 
 gettxt("hsl(192 63% 94%)", "txt", 48, 700, 4);
 gettxt("hsl(192 63% 94%)", "txt", 16, 400, 4);
+gettxt("#fff", "txt", 16, 400, 4);
 
 function toHSL(color) {
   let [r, g, b] = colorParsley(color);
