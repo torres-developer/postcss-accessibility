@@ -33,7 +33,7 @@ function plugin(options = {}) {
                 case "function": return `${i.value}(${i.nodes.filter(i => i.type !== "div").map(i => i.value).join("")})`;
               }
             });
-          decl.value = gettxt(params[0], "txt", `${getFontSizePX(params[1] ?? fontSize, curM)}px`, params[2] ?? fontWeight, params[3] ?? usage);
+          decl.value = gettxt(params[0], "txt", getFontSizePX(params[1] ?? fontSize, curM), params[2] ?? fontWeight, params[3] ?? usage);
         }
       }
     }

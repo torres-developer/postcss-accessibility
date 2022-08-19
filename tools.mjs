@@ -53,31 +53,73 @@ const nonTextScoreG = fontScoreGmin[4][2];  // level to break to non-text only
 // 999 = too low. 777 = non-text and spot text only
 
 const byFontSize = [
-['px',100,200,300,400,500,600,700,800,900],
-[10,  999,999,999,999,999,999,999,999,999],
-[12,  999,999,999,777,777,777,777,999,999],
-[14,  999,999,777,100,100,90, 75, 999,999],
-[15,  999,999,777,100,90, 75, 70, 999,999],
-[16,  999,999,777,90, 75, 70, 60, 60, 999],
-[18,  999,777,100,75, 70, 60, 55, 55, 55 ],
-[21,  999,777,90, 70, 60, 55, 50, 50, 50 ],
-[24,  999,777,75, 60, 55, 50, 45, 45, 45 ],
-[28,  999,100,70, 55, 50, 45, 43, 43, 43 ],
-[32,  999,90, 65, 50, 45, 43, 40, 40, 40 ],
-[36,  999,75, 60, 45, 43, 40, 38, 38, 38 ],
-[42,  100,70, 55, 43, 40, 38, 35, 35, 35 ],
-[48,  90, 60, 50, 40, 38, 35, 33, 33, 33 ],
-[60,  75, 55, 45, 38, 35, 33, 30, 30, 30 ],
-[72,  60, 50, 40, 35, 33, 30, 30, 30, 30 ],
-[96,  50, 45, 35, 33, 30, 30, 30, 30, 30 ],
+['px', 100,         200,         300,         400,         500,         600,         700,         800,         900         ],
+[10,   { Lc: 999 }, { Lc: 999 }, { Lc: 999 }, { Lc: 999 }, { Lc: 999 }, { Lc: 999 }, { Lc: 999 }, { Lc: 999 }, { Lc: 999 } ],
+[12,   { Lc: 999 }, { Lc: 999 }, { Lc: 999 }, { Lc: 777 }, { Lc: 777 }, { Lc: 777 }, { Lc: 777 }, { Lc: 999 }, { Lc: 999 } ],
+[14,   { Lc: 999 }, { Lc: 999 }, { Lc: 777 }, { Lc: 100 }, { Lc: 100 }, { Lc: 90 },  { Lc: 75 },  { Lc: 999 }, { Lc: 999 } ],
+[15,   { Lc: 999 }, { Lc: 999 }, { Lc: 777 }, { Lc: 100 }, { Lc: 90 },  { Lc: 75 },  { Lc: 70 },  { Lc: 999 }, { Lc: 999 } ],
+[16,   { Lc: 999 }, { Lc: 999 }, { Lc: 777 }, { Lc: 90 },  { Lc: 75 },  { Lc: 70 },  { Lc: 60 },  { Lc: 60 },  { Lc: 999 } ],
+[18,   { Lc: 999 }, { Lc: 777 }, { Lc: 100 }, { Lc: 75 },  { Lc: 70 },  { Lc: 60 },  { Lc: 55 },  { Lc: 55 },  { Lc: 55 }  ],
+[21,   { Lc: 999 }, { Lc: 777 }, { Lc: 90 },  { Lc: 70 },  { Lc: 60 },  { Lc: 55 },  { Lc: 50 },  { Lc: 50 },  { Lc: 50 }  ],
+[24,   { Lc: 999 }, { Lc: 777 }, { Lc: 75 },  { Lc: 60 },  { Lc: 55 },  { Lc: 50 },  { Lc: 45 },  { Lc: 45 },  { Lc: 45 }  ],
+[28,   { Lc: 999 }, { Lc: 100 }, { Lc: 70 },  { Lc: 55 },  { Lc: 50 },  { Lc: 45 },  { Lc: 43 },  { Lc: 43 },  { Lc: 43 }  ],
+[32,   { Lc: 999 }, { Lc: 90 },  { Lc: 65 },  { Lc: 50 },  { Lc: 45 },  { Lc: 43 },  { Lc: 40 },  { Lc: 40 },  { Lc: 40 }  ],
+[36,   { Lc: 999 }, { Lc: 75 },  { Lc: 60 },  { Lc: 45 },  { Lc: 43 },  { Lc: 40 },  { Lc: 38 },  { Lc: 38 },  { Lc: 38 }  ],
+[42,   { Lc: 100 }, { Lc: 70 },  { Lc: 55 },  { Lc: 43 },  { Lc: 40 },  { Lc: 38 },  { Lc: 35 },  { Lc: 35 },  { Lc: 35 }  ],
+[48,   { Lc: 90 },  { Lc: 60 },  { Lc: 50 },  { Lc: 40 },  { Lc: 38 },  { Lc: 35 },  { Lc: 33 },  { Lc: 33 },  { Lc: 33 }  ],
+[60,   { Lc: 75 },  { Lc: 55 },  { Lc: 45 },  { Lc: 38 },  { Lc: 35 },  { Lc: 33 },  { Lc: 30 },  { Lc: 30 },  { Lc: 30 }  ],
+[72,   { Lc: 60 },  { Lc: 50 },  { Lc: 40 },  { Lc: 35 },  { Lc: 33 },  { Lc: 30 },  { Lc: 30 },  { Lc: 30 },  { Lc: 30 }  ],
+[96,   { Lc: 50 },  { Lc: 45 },  { Lc: 35 },  { Lc: 33 },  { Lc: 30 },  { Lc: 30 },  { Lc: 30 },  { Lc: 30 },  { Lc: 30 }  ],
 ];
 
 export function gettxt(color, knownType, fs, fw, usage) {
+  if (fw <= 100) console.warn("Avoid using font-weight 100");
+
   const [fontWeights, ...rest] = byFontSize;
   const closestFontSize = rest.reduce((x, y) => Math.abs(y[0] - fs) < Math.abs(x[0] - fs) ? y : x);
-  const Lc = closestFontSize[fontWeights.indexOf(fw)];
-  const target = fontScoreGmin.reduce((x, y) => Math.abs(y[0] - Lc) < Math.abs(x[0] - Lc) ? y : x)[usage];
+  let Lc = closestFontSize[fontWeights.indexOf(+fw)].Lc;
 
+  switch (usage.toUpperCase()) {
+    case "DECORATIVE": usage = 1; break;
+    case "SPOT": usage = 2; break;
+    case "SUBFLUENT": usage = 3; break;
+    case "FLUENT": usage = 4; break;
+    case "BODYTEXT": usage = 5; break;
+    case "MAX": usage = 6; break;
+  }
+
+  if (Lc === 999) {
+    if (usage !== 1) {
+     return console.log(
+       `Got font-size = ${fs}px and font-weight = ${fw}.`,
+       "Too low. Prohibited Except for Decorative Purposes. Maybe you forgot to make the usage = Decorative."
+     );
+    }
+    Lc = minScoreG;
+  } else if (Lc === 777) {
+    if (usage !== 2) {
+     return console.log(
+       `Got font-size = ${fs}px and font-weight = ${fw}.`,
+       "Just for non-text and spot text only. Maybe you forgot to make the usage = Spot. If not try to increase the font size or font weight."
+     );
+    }
+    Lc = nonTextScoreG;
+  } else if (Lc < nonTextScoreG && usage > 3) {
+    return console.log(
+      `Got font-size = ${fs}px and font-weight = ${fw}.`,
+      "Contrast too low for text. Try decreasing the font size or the font weight."
+    );
+  } else if (
+    fw >= 300 && fw <= 700 &&
+    fs >= 14 && fs <= 36 &&
+    Lc > nonTextScoreG &&
+    usage > 4
+  ) {
+    Lc += 15;
+  }
+
+  const target = fontScoreGmin.reduce((x, y) => Math.abs(y[0] - Lc) < Math.abs(x[0] - Lc) ? y : x)[usage];
+  
   const { h, s } = toHSL(color);
 
   const colors = [];
@@ -86,8 +128,8 @@ export function gettxt(color, knownType, fs, fw, usage) {
 
     let contrast;
     switch (knownType) {
-      case "txt": contrast = calcAPCA(newColor, color); break;
-      case "bg": contrast = calcAPCA(color, newColor); break;
+      case "bg": contrast = calcAPCA(newColor, color); break;
+      case "txt": contrast = calcAPCA(color, newColor); break;
     }
 
     colors.push({
@@ -98,6 +140,7 @@ export function gettxt(color, knownType, fs, fw, usage) {
 
   const { color: contrast } = colors.reduce((x, y) => Math.abs(Math.abs(y.contrast) - target) < Math.abs(Math.abs(x.contrast) - target) ? y : x);
 
+  /*
   const colors3 = [];
   for (let i = 0; i <= 100; i++) {
     const newColor = toHSLString({h: 0, s: 0, l: i});
@@ -123,6 +166,7 @@ export function gettxt(color, knownType, fs, fw, usage) {
   contrast2 = toHSLString(toHSL(contrast2));
 
   //console.log(target, contrast, contrast2, contrast3);
+  */
   
   return contrast;
 }
@@ -153,7 +197,11 @@ function toHSL(color) {
     }
   })() * 60;
 
-  return {h, s: s * 100 + "%", l: l * 100 + "%"};
+  return {
+    h: Math.round(h),
+    s: Math.round(s * 100) + "%",
+    l: Math.round(l * 100) + "%",
+  };
 }
 
 function toHSLString({h, s, l}) {
