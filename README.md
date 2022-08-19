@@ -5,14 +5,18 @@
 [PostCSS]: https://github.com/postcss/postcss
 
 ```css
-.foo {
-  /* Input example */
+p {
+    background-color: hsl(192 62% 94%);
+    color: a11y-txt(hsl(192 62% 94%), 1.75em, 400);
+    font-size: 1.75em;
 }
 ```
 
 ```css
-.foo {
-  /* Output example */
+p {
+    background-color: hsl(192 62% 94%);
+    color: hsl(192.63157894736838 61.290322580645174% 17%);
+    font-size: 1.75em;
 }
 ```
 
