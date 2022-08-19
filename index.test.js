@@ -74,6 +74,174 @@ it("Creates a good text color to use on copyright/by-line text for the backgroun
 it("", async () => {
   await run(`p {
     background-color: hsl(192 62% 6%);
+    color: a11y-txt(hsl(192 62% 6%), 96px, 200, Decorative);
+    font-size: 96px;
+    font-weight: 200;
+  }`, `p {
+    background-color: hsl(192 62% 6%);
+    color: hsl(193 61% 40%);
+    font-size: 96px;
+    font-weight: 200;
+  }`);
+});
+
+it("", async () => {
+  await run(`p {
+    background-color: hsl(192 62% 6%);
+    color: a11y-txt(hsl(192 62% 6%), 28px, 200, Decorative);
+    font-size: 28px;
+    font-weight: 200;
+  }`, `p {
+    background-color: hsl(192 62% 6%);
+    color: hsl(193 61% 60%);
+    font-size: 28px;
+    font-weight: 200;
+  }`);
+});
+
+it("", async () => {
+  await run(`p {
+    background-color: hsl(192 62% 6%);
+    color: a11y-txt(hsl(192 62% 6%), 42px, 900, Decorative);
+    font-size: 42px;
+    font-weight: 900;
+  }`, `p {
+    background-color: hsl(192 62% 6%);
+    color: hsl(193 61% 32%);
+    font-size: 42px;
+    font-weight: 900;
+  }`);
+});
+
+it("", async () => {
+  await run(`p {
+    background-color: hsl(192 62% 6%);
+    color: a11y-txt(hsl(192 62% 6%), 16px, 800, Decorative);
+    font-size: 16px;
+    font-weight: 800;
+  }`, `p {
+    background-color: hsl(192 62% 6%);
+    color: hsl(193 61% 46%);
+    font-size: 16px;
+    font-weight: 800;
+  }`);
+});
+
+it("", async () => {
+  await run(`p {
+    background-color: hsl(192 62% 6%);
+    color: a11y-txt(hsl(192 62% 6%), 96px, 200, Spot);
+    font-size: 96px;
+    font-weight: 200;
+  }`, `p {
+    background-color: hsl(192 62% 6%);
+    color: hsl(193 61% 44%);
+    font-size: 96px;
+    font-weight: 200;
+  }`);
+});
+
+it("", async () => {
+  await run(`p {
+    background-color: hsl(192 62% 6%);
+    color: a11y-txt(hsl(192 62% 6%), 28px, 200, Spot);
+    font-size: 28px;
+    font-weight: 200;
+  }`, `p {
+    background-color: hsl(192 62% 6%);
+    color: hsl(193 61% 67%);
+    font-size: 28px;
+    font-weight: 200;
+  }`);
+});
+
+it("", async () => {
+  await run(`p {
+    background-color: hsl(192 62% 6%);
+    color: a11y-txt(hsl(192 62% 6%), 42px, 900, Spot);
+    font-size: 42px;
+    font-weight: 900;
+  }`, `p {
+    background-color: hsl(192 62% 6%);
+    color: hsl(193 61% 36%);
+    font-size: 42px;
+    font-weight: 900;
+  }`);
+});
+
+it("", async () => {
+  await run(`p {
+    background-color: hsl(192 62% 6%);
+    color: a11y-txt(hsl(192 62% 6%), 16px, 800, Spot);
+    font-size: 16px;
+    font-weight: 800;
+  }`, `p {
+    background-color: hsl(192 62% 6%);
+    color: hsl(193 61% 50%);
+    font-size: 16px;
+    font-weight: 800;
+  }`);
+});
+
+it("", async () => {
+  await run(`p {
+    background-color: hsl(192 62% 6%);
+    color: a11y-txt(hsl(192 62% 6%), 96px, 200, SubFluent);
+    font-size: 96px;
+    font-weight: 200;
+  }`, `p {
+    background-color: hsl(192 62% 6%);
+    color: hsl(193 61% 49%);
+    font-size: 96px;
+    font-weight: 200;
+  }`);
+});
+
+it("", async () => {
+  await run(`p {
+    background-color: hsl(192 62% 6%);
+    color: a11y-txt(hsl(192 62% 6%), 28px, 200, SubFluent);
+    font-size: 28px;
+    font-weight: 200;
+  }`, `p {
+    background-color: hsl(192 62% 6%);
+    color: hsl(193 61% 77%);
+    font-size: 28px;
+    font-weight: 200;
+  }`);
+});
+
+it("", async () => {
+  await run(`p {
+    background-color: hsl(192 62% 6%);
+    color: a11y-txt(hsl(192 62% 6%), 42px, 900, SubFluent);
+    font-size: 42px;
+    font-weight: 900;
+  }`, `p {
+    background-color: hsl(192 62% 6%);
+    color: hsl(193 61% 39%);
+    font-size: 42px;
+    font-weight: 900;
+  }`);
+});
+
+it("", async () => {
+  await run(`p {
+    background-color: hsl(192 62% 6%);
+    color: a11y-txt(hsl(192 62% 6%), 16px, 800, SubFluent);
+    font-size: 16px;
+    font-weight: 800;
+  }`, `p {
+    background-color: hsl(192 62% 6%);
+    color: hsl(193 61% 60%);
+    font-size: 16px;
+    font-weight: 800;
+  }`);
+});
+
+it("", async () => {
+  await run(`p {
+    background-color: hsl(192 62% 6%);
     color: a11y-txt(hsl(192 62% 6%), 96px, 200, Fluent);
     font-size: 96px;
     font-weight: 200;
