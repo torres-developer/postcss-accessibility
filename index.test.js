@@ -1,6 +1,6 @@
-const postcss = require("postcss");
+import postcss from "postcss";
 
-const plugin = require("./index.js");
+import plugin from "./index.js";
 
 async function run(input, output, opts = { }) {
   const result = await postcss([plugin(opts)]).process(input, { from: undefined });
@@ -11,40 +11,14 @@ async function run(input, output, opts = { }) {
 
 // Write tests here
 
-it('does something', async () => {
+it("finds the best text color for the background-color: hsl(192deg, 62%, 94%)", async () => {
   await run(`p {
-    background-color: #fff;
-    color: a11y-txt(#fff);
+    background-color: hsl(192 62% 94%);
+    color: a11y-txt(hsl(192 62% 94%), 1.75em, 400);
+    font-size: 1.75em;
   }`, `p {
-    background-color: #fff;
-    color: a11y-txt(#fff);
+    background-color: hsl(192 62% 94%);
+    color: hsl(192.63157894736838 61.290322580645174% 17%);
+    font-size: 1.75em;
   }`, {});
 });
-it('does something', async () => {
-  await run(`p {
-    background-color: #fff;
-    color: a11y-txt(#fff);
-  }`, `p {
-    background-color: #fff;
-    color: a11y-txt(#fff);
-  }`, {rootFontSize: ".5in"});
-});
-it('does something', async () => {
-  await run(`p {
-    background-color: #fff;
-    color: a11y-txt(#fff);
-  }`, `p {
-    background-color: #fff;
-    color: a11y-txt(#fff);
-  }`, {rootFontSize: "3mm"});
-});
-it('does something', async () => {
-  await run(`p {
-    background-color: #fff;
-    color: a11y-txt(#fff);
-  }`, `p {
-    background-color: #fff;
-    color: a11y-txt(#fff);
-  }`, {rootFontSize: "1.5pt"});
-});
-//color: hsl(0 0% 29%);

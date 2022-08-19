@@ -98,18 +98,34 @@ export function gettxt(color, knownType, fs, fw, usage) {
 
   const { color: contrast } = colors.reduce((x, y) => Math.abs(Math.abs(y.contrast) - target) < Math.abs(Math.abs(x.contrast) - target) ? y : x);
 
+  const colors3 = [];
+  for (let i = 0; i <= 100; i++) {
+    const newColor = toHSLString({h: 0, s: 0, l: i});
+
+    let contrast;
+    switch (knownType) {
+      case "txt": contrast = calcAPCA(newColor, color); break;
+      case "bg": contrast = calcAPCA(color, newColor); break;
+    }
+
+    colors3.push({
+      color: newColor,
+      contrast
+    });
+  }
+
+  const { color: contrast3 } = colors3.reduce((x, y) => Math.abs(Math.abs(y.contrast) - target) < Math.abs(Math.abs(x.contrast) - target) ? y : x);
+
   let contrast2 = reverseAPCA(target, sRGBtoY(colorParsley(color)), knownType, "color");
 
   if (!contrast2) contrast2 = reverseAPCA(-target, sRGBtoY(colorParsley(color)), knownType, "color");
 
   contrast2 = toHSLString(toHSL(contrast2));
 
-  console.log(target, contrast, contrast2);
+  //console.log(target, contrast, contrast2, contrast3);
+  
+  return contrast;
 }
-
-gettxt("hsl(192 63% 94%)", "txt", 48, 700, 4);
-gettxt("hsl(192 63% 94%)", "txt", 16, 400, 4);
-gettxt("#fff", "txt", 16, 400, 4);
 
 function toHSL(color) {
   let [r, g, b] = colorParsley(color);
@@ -143,6 +159,3 @@ function toHSL(color) {
 function toHSLString({h, s, l}) {
   return `hsl(${h} ${s} ${l}%)`;
 }
-
-toHSL("hsl(192 63% 94%)");
-toHSL("rgb(24 98 118)");

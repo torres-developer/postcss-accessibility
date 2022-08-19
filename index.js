@@ -1,56 +1,72 @@
 "use strict";
 
-const valueParser = require("postcss-value-parser");
+import valueParser from "postcss-value-parser";
 
-//const { gettxt } = require("./tools.mjs");
+import { gettxt } from "./tools.mjs";
 
-const DEFAULT_OPTS = {
+const OPTIONS = {
   rootFontSize: "16px",
   fontSize: "16px",
   fontWeight: 400,
   usage: 4,
 };
 
+function plugin(options = {}) {
+  const { rootFontSize, fontSize, fontWeight, usage, } = Object.assign(OPTIONS, options);
+
+  let curM = OPTIONS.rootM = getFontSizePX(rootFontSize);
+
+  return {
+    postcssPlugin: "postcss-accessibility",
+
+    Declaration(decl) {
+      const values = decl.value.split(/(?!\(.*)\s(?![^(]*?\))/g);
+
+      for (const valueIndex in values) {
+        const value = values[valueIndex];
+        if (value.startsWith("a11y-txt(")) {
+          const params = valueParser(value).nodes[0].nodes
+            .filter(i => i.type !== "div")
+            .map(i => {
+              switch (i.type) {
+                case "word": return i.value;
+                case "function": return `${i.value}(${i.nodes.filter(i => i.type !== "div").map(i => i.value).join("")})`;
+              }
+            });
+          decl.value = gettxt(params[0], "txt", `${getFontSizePX(params[1] ?? fontSize, curM)}px`, params[2] ?? fontWeight, params[3] ?? usage);
+        }
+      }
+    }
+  }
+}
+plugin.postcss = true;
+
 /**
  * @type {import('postcss').PluginCreator}
  */
-module.exports = (opts = {}) => {
-  const { rootFontSize, fontSize, fontWeight, usage, } = Object.assign(DEFAULT_OPTS, opts);
+export default plugin;
 
-  if (typeof rootFontSize !== "string" && !(rootFontSize instanceof String)) return;
+function getFontSizePX(fontSize, M = OPTIONS.rootM) {
+  if (typeof fontSize !== "string" && !(fontSize instanceof String)) return;
 
-  let [, rootFontSizeValue, rootFontSizeUnit] = rootFontSize.match(/^(\d*\.?\d+)(px|cm|mm|Q|in|pc|pt)$/) ?? [];
+  let [, value, unit] = fontSize.match(/^(\d*\.?\d+)(px|cm|mm|Q|in|pc|pt|rem|em)$/) ?? [];
 
-  if (rootFontSizeValue == null || !rootFontSizeUnit == null) return;
+  if (unit.includes("em") && !OPTIONS.rootM) return;
 
-  if (rootFontSizeUnit.startsWith(".")) rootFontSizeUnit = 0 + rootFontSizeUnit;
+  if (value == null || !unit == null) return;
 
-  switch (rootFontSizeUnit) {
-    case "px": break;
-    case "cm": rootFontSizeValue *= 96/2.54; break;
-    case "mm": rootFontSizeValue *= 96/2.54/10; break;
-    case "Q": rootFontSizeValue *= 96/2.54/10*4; break;
-    case "in": rootFontSizeValue *= 96; break;
-    case "pc": rootFontSizeValue *= 96/6; break;
-    case "pt": rootFontSizeValue *= 96/72; break;
+  if (unit.startsWith(".")) unit = 0 + unit;
+
+  switch (unit) {
+    case "em": return value * M;
+    case "rem": return value * OPTIONS.rootM;
+    case "px": return value;
+    case "cm": return value * 96/2.54;
+    case "mm": return value * 96/2.54/10;
+    case "Q": return value * 96/2.54/10*4;
+    case "in": return value * 96;
+    case "pc": return value * 96/6;
+    case "pt": return value * 96/72;
     default: return;
   }
-
-  console.log("fs: ", rootFontSizeValue);
-
-  // Work with options here
-  return {
-    postcssPlugin: 'postcss-accessibility',
-    //Rule: rule => {
-    //  console.log(rule);
-    //},
-    Declaration: decl => {
-      if (decl.value.startsWith("a11y-txt(")) {
-        const params = valueParser(decl.value).nodes[0].nodes;
-        //console.log(/*gettxt(*/params[0].value, "txt", ...Object.values(opts)/*)*/);
-      }
-    },
-  };
 }
-
-module.exports.postcss = true;
